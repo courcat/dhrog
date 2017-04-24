@@ -1,11 +1,13 @@
 # Dhrog
 Open Source HTML5 Strategy Game
 
-Developed and maintained by (Courcat)[https://courcat.com]
+![CC](http://www.thelogofactory.com/wp-content/uploads/2006/03/attribution-non-commercial-creative-commons-license.png)
+
+Developed and maintained by [Courcat](https://courcat.com)
 
 # Credits
-+ *Art* - (Toen's Medieval Strategy Art set)[https://toen.itch.io/toens-medieval-strategy]
-+ *Development* - (Courcat)[https://github.com/courcat]
++ *Art* - [Toen's Medieval Strategy Art set](https://toen.itch.io/toens-medieval-strategy)
++ *Development* - [Courcat](https://github.com/courcat)
 
 # Change Log
 
@@ -16,7 +18,7 @@ Developed and maintained by (Courcat)[https://courcat.com]
 * Drastically improved movement UI
 + Added Universal controls for iOS
 + Can scroll map with arrow keys
-+
+
 * Now displays resource icons instead of text
 * Fixed movement with keys
 * Fixed castle not showing under fog of war
