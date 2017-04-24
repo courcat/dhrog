@@ -1,8 +1,6 @@
 # Dhrog
 Open Source HTML5 Strategy Game
 
-[![CC](https://licensebuttons.net/l/by-nc-nd/3.0/88x31.png)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-
 Developed and maintained by [Courcat](https://courcat.com)
 
 # Credits
