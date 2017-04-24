@@ -1,0 +1,105 @@
+<!-- Dhrog-go is Tibetian for Friend -->
+<!-- Version 0.0.5 -->
+<!-- Copyright 2017 Courcat -->
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Dhrog</title>
+		<!-- jQuery -->
+		<script src="lib/jquery.js"></script>
+		<script src="lib/jquery-ui.js"></script>
+		<script src="lib/jquery.ui.touch-punch.min.js"></script>
+
+		<link rel="stylesheet" href="scripts/main.css">
+		<script src="data/mapdata.js"></script>
+		<script src="data/data.js"></script>
+
+		<script src="scripts/main.js"></script>
+		<script src="scripts/game.js"></script>
+		<script src="scripts/g.js"></script>
+		<script src="scripts/engine.js"></script>
+		<script src="scripts/modules.js"></script>
+		<script src="scripts/file.js"></script>
+		<script src="scripts/interface.js"></script>
+		<script src="scripts/input.js"></script>
+		<script src="scripts/player.js"></script>
+		<script src="scripts/ai.js"></script>
+
+		<script src="scripts/map.js"></script>
+		<script src="scripts/map-display.js"></script>
+		<script src="scripts/map-manage.js"></script>
+
+		<!-- Meta -->
+			<link rel="shortcut icon" href="data/favico.png"/>
+			<meta charset="UTF-8">
+			<meta name="description" content="The epic 8 bit turn based strategy game known only as Dhrog.">
+
+		<!-- iPhone -->
+			<meta name="viewport" content = "width = device-width, initial-scale = 1.0, user-scalable = no" />
+			<meta name="apple-mobile-web-app-status-bar-style" content="black">
+			<meta name="apple-mobile-web-app-capable" content="yes">
+			<meta name="mobile-web-app-capable" content="yes">
+			<meta name="apple-mobile-web-app-title" content="Dhorg">
+			<link rel="apple-touch-icon" href="data/iphone.png">
+	</head>
+	<body id="body">
+		<!-- Content -->
+		<div id="canvasCase"><canvas id="canvas" width="50px" height="50px" style="left:0px; top:0px;"></canvas></div>
+
+		<!-- inventory -->
+		<footer>
+			<ul id="inventory">
+				<li>| <i class="inventory gold"></i> <span class="inventory inventory-gold">I</span> | </li>
+				<li><i class="inventory iron"></i> <span class="inventory inventory-iron">am</span> | </li>
+				<li><i class="inventory stone"></i> <span class="inventory inventory-stone">st</span> | </li>
+				<li><i class="inventory wood"></i> <span class="inventory inventory-wood">ill</span> | </li>
+				<li><i class="inventory food"></i> <span class="inventory inventory-food"></span> | </li>
+				<li><i class="inventory horse"></i> <span class="inventory inventory-horse">load</span> | </li>
+				<li><i class="inventory research"></i> <span class="inventory inventory-research">ing</span> | </li>
+			</ul>
+		</footer>
+
+		<!-- Navigation -->
+		<nav>
+			<!-- Main nav -->
+			<ul>
+				<li class="logo sidebar">Dhrog</li>
+				<li class="controls"><span class="control" onclick="tilesize.display = 64; g.size(); game.centerMap();">+</span><span class="control" onclick="tilesize.display = 32; g.size(); game.centerMap();">-</span><span class="control" onclick="fullscreen();">f</span><span class="control" onclick="ui.window(mod.pause);">p</span></li>
+			</ul>
+
+			<!-- mobile menu -->
+			<ul class="toggle">
+				<li onclick="ui.window(mod.mobileMenu)" class="title button">Action</li>
+				<li onclick="game.turn();" class="title button">Next Turn</li>
+			</ul>
+
+			<!-- game nav -->
+			<ul class="menu_hidden sidebar" id="game">
+				<li onclick="ui.window(mod.train);" class="title button">Train</li>
+				<li onclick="ui.window(mod.research);" class="title button">Research</li>
+				<li onclick="ui.window(mod.politics);" class="title button">Politics</li>
+			</ul>
+
+			<ul class="turn">
+				<span class="unitdetails">
+					<li onclick="ui.window(mod.build);" class="build_button sidebar title button">Build</li>
+					<li onclick="ui.window(mod.upgrade);" class="upgrade_button sidebar title button">Upgrade</li>
+					<li class="unitbox">
+						<div class='unitstats'>
+							<span class="unit_preview sprite"></span>
+							<span class="unit_name"></span>
+							<span class="unit_details">
+								<span class="unit_health">100%</span>
+								<span class="unit_points">10</span>
+							</span>
+							<span class="unit_controls"></span>
+						</div>
+					</li>
+				</span>
+
+				<li onclick="game.turn();" class="title button nextTurn">Next Turn</li>
+			</ul>
+		</nav>
+	</body>
+</html>
