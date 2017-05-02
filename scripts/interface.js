@@ -75,14 +75,17 @@ ui.hello = function(){
   document.body.style.setProperty('--color-dark', game.team.color.dark);
 }
 
-ui.window = function(module){
+ui.window = function(template){
   $('.ui_cover').remove();
   ui.eternal = true;
-  $('body').append("<div class='ui_cover'><div class='ui ui_window'>" + module + "</div></div>");
 
-  $( ".ui" ).bind( "tap", function( e ){
-    ui.window(mod.credits);
-  });
+  var module = new template();
+
+  $('body').append("<div class='ui_cover'><div class='ui ui_window'>" + module.html + "</div></div>");
+
+  if(module.run){
+    module.run();
+  }
 
   ui.finish();
 }

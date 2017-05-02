@@ -21,7 +21,6 @@
 }
 
 html {
-  background-color: var(--color-med);
   position: fixed;
   top: 0px; left: 0px; right: 0px; bottom: 0px;
 }
@@ -76,7 +75,7 @@ body.hover {
     top: 0px;
     left: 0px;
     right: 0px;
-    background-color: var(--color-med);
+    background: var(--color-med);
   }
 
   #canvasCase {
@@ -97,7 +96,7 @@ body.hover {
     width: 102px;
     font-size: 150%;
     border-left: 2px solid var(--color-dark);
-    background-color: var(--color-light);
+    background: var(--color-light);
     padding: 1%;
     overflow: auto;
   }
