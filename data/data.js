@@ -129,6 +129,7 @@
     terrain.create("shoal2", { x: 1, y: 34, movementcost: 100, ontop: ground.water, travel: false});
 
     terrain.create("seaweed", { x: 6, y: 30, movementcost: 20, ontop: ground.water, travel: true});
+    
 
   //Borders
     function border(){}
@@ -174,7 +175,7 @@
     item.create("wood", {x: 6, y: 22, color:"#816951"});
     item.create("food", {x: 6, y: 21, color:"#1f930c"});
     item.create("horse", {x: 3, y: 15, color:"#811111"});
-    item.create("research", {x: 3, y: 15, color:"#0e6979"});
+    item.create("research", {x: 3, y: 21, color:"#0e6979"});
 
     item.list = [item.gold,item.iron,item.stone,item.wood,item.food,item.horse,item.research];
 
@@ -210,86 +211,123 @@
       return this.text;
     }
 
-    //town
-      building.create("town", { x: 1, y: 1, cost:{gold:50,iron:10,stone:50,wood:40,food:20}, produces:item.gold, count:4, flag:true});
-
-    //house
+    /* Legend
+    Resources:
+    g = Gold
+    f = Food
+    h = Horses
+    s = Stone
+    i = Iron
+    r = Research
+    v = Visibility
+    Extras:
+    W = Requires worker
+    NB = Not buildable (most likely means that this is an upgrade)
+    I = Inactive/not yet implemented
+    */
+    
+    // Gold producers
+    //capital - 7g (NB)
+      building.create("capital", { x: 6, y: 4, cost:{gold:75,iron:50,stone:100,wood:90,food:65}, produces:item.gold, count:7, flag:true});
+    //metropolis - 6g (NB)
+      building.create("metropolis", { x: 1, y: 4, cost:{gold:50,iron:40,stone:80,wood:75,food:50}, produces:item.gold, count:6, upgrade:building.capital, flag:true});
+    //city - 5g (NB)
+      building.create("city", { x: 1, y: 2, cost:{gold:40,iron:20,stone:60,wood:50,food:30}, produces:item.gold, count:5, upgrade:building.metropolis, flag:true});
+    //town - 4g (NB)
+      building.create("town", { x: 0, y: 3, cost:{gold:30,iron:10,stone:50,wood:40,food:20}, produces:item.gold, count:4, upgrade:building.city, flag:true});
+    //house - 3g (NB)
       building.create("house", { x: 2, y: 1, cost:{gold:20,stone:20,wood:20,food:10}, produces:item.gold, count:3, upgrade:building.town, flag:true});
-
-    //cottage
+    //cottage - 2g (NB)
       building.create("cottage", { x: 1, y: 1, cost:{gold:10,stone:10,wood:20,food:10}, produces:item.gold, count:2, upgrade:building.house, flag:true});
-
-    //shack
+    //shack - 1g
       building.create("shack", { x: 0, y: 1, buildable:true, cost:{gold:5,wood:10,food:10}, produces:item.gold, count:1, upgrade:building.cottage, flag:true});
 
 
-    //field
-      building.create("field", { x: 6, y: 6, cost:{stone:10,wood:10,food:10}, produces:item.food, count:3, reqWorker: true, flag:true});
+    // Food producers
+    //farm - 5f (W,NB)
+      building.create("farm", { x: 6, y: 9, cost:{iron:10,stone:20,wood:50,food:40}, produces:item.food, count:5, reqWorker: true, flag:true});
+    //field - 4f (W,NB)
+      building.create("field", { x: 6, y: 6, cost:{stone:10,wood:40,food:30}, produces:item.food, count:4, reqWorker: true, upgrade:building.farm, flag:true});
+    //patch - 3f (W,NB)
+      building.create("patch", { x: 6, y: 7, cost:{wood:30,food:20}, produces:item.food, reqWorker: true, count:3, upgrade:building.field, flag:true});
+    //garden - 2f (W,NB)
+      building.create("garden", { x: 6, y: 8, cost:{wood:20,food:15}, produces:item.food, count:2, reqWorker: true, upgrade:building.patch, flag:true});
+    //windmill - 1f (W)
+      building.create("windmill", {x: 3, y: 24, buildable:true, cost:{wood:10,food:10}, produces:item.food, count:1, reqWorker: true, upgrade:building.garden, flag:true});
 
-    //patch
-      building.create("patch", { x: 6, y: 7, cost:{wood:30,food:10}, produces:item.food, reqWorker: true, count:2, upgrade:building.field, flag:true});
+      
+    // Horse producers
+    //ranch - 2h (W,NB)
+      building.create("ranch", { x: 2, y: 2, cost:{stone:50,wood:50,food:50,gold:25}, produces:item.horse, count:2, reqWorker: true, flag:true});
+    //stables - 1h (W)
+      building.create("stables", { x: 2, y: 2, buildable:true, cost:{stone:25,wood:25,food:25}, produces:item.horse, count:1, reqWorker: true, upgrade:building.ranch, flag:true});
 
-    //garden
-      building.create("garden", { x: 6, y: 8, buildable:true, cost:{wood:10,food:10}, produces:item.food, count:1, reqWorker: true, buildnew: true, upgrade:building.patch, flag:true});
+    
+    // Stone production
+    //quarry - 2s (W,NB)
+      building.create("quarry", { x: 0, y: 5, cost:{stone:20,wood:20,food:20}, produces:item.stone, count:2, reqWorker: true, flag:true, buildbeside:terrain.hill});
+    //digsite - 1s (W)
+      building.create("digsite", { x: 0, y: 5, cost:{stone:10,wood:10,food:10}, produces:item.stone, count:1, reqWorker: true, upgrade:building.quarry, flag:true, buildbeside:terrain.hill});
+
+    
+    // Iron production
+    //mineshaft - 2i (W,NB)
+      building.create("mineshaft", { x: 0, y: 5, cost:{iron:10,stone:10,wood:10,food:10}, produces:item.iron, count:2, reqWorker: true, flag:true, buildbeside:terrain.rock});
+    //mine - 1i (W)
+      building.create("mine", { x: 0, y: 5, cost:{stone:10,wood:10,food:10}, produces:item.iron, count:1, reqWorker: true, upgrade:building.mineshaft, flag:true, buildbeside:terrain.rock});
 
 
-    //ranch
-      building.create("ranch", { x: 6, y: 6, cost:{stone:10,wood:10,food:10}, produces:item.horse, count:1, reqWorker: true, flag:true});
+    // Wood production
+    //sawmill - 2w (W,NB)
+      building.create("sawmill", { x: 0, y: 2, cost:{iron:10,stone:10,wood:10,food:10}, produces:item.wood, count:2, reqWorker: true, buildbeside: terrain.forest2});
+    //mill - 1w (W)
+      building.create("mill", { x: 0, y: 2, buildable:true, cost:{stone:1,wood:10,food:10}, produces:item.wood, count:1, reqWorker: true, upgrade:building.sawmill, buildbeside: terrain.forest2});
 
-    //Quarry
-      building.create("quarry", { x: 0, y: 5, cost:{stone:10,wood:10,food:10}, produces:item.stone, count:1, reqWorker: true, flag:true, buildbeside:terrain.hill});
-
-    //Mine
-      building.create("mine", { x: 0, y: 5, cost:{stone:10,wood:10,food:10}, produces:item.iron, count:1, reqWorker: true, flag:true, buildbeside:terrain.rock});
-
-    //Mine
-      building.create("mine", { x: 0, y: 5, cost:{stone:10,wood:10,food:10}, produces:item.iron, count:1, reqWorker: true, flag:true, buildbeside:terrain.rock});
-
-    //mill
-      building.create("mill", { x: 0, y: 2, buildable:true, cost:{stone:1,wood:10,food:10}, produces:item.wood, count:1, reqWorker: true, buildbeside: terrain.forest2});
-
-    //researchCenter
+    
+    // Research production
+    //researchCenter - 1r (W)
       building.create("researchCenter", { x: 6, y: 4, buildable:true, cost:{stone:10,wood:100,food:100,gold:100}, produces:item.research, count:1, reqWorker: true});
 
-    //castle3
+    
+    // Defensive buildings
+    //castle3 - 6v (D,NB)
       building.create("castle3", { x: 4, y: 7, cost:{stone:10,wood:10,food:10}, upgrade:false, castle:true, visibility: 6, health:1000, defensive:true });
         building.castle3.I = { x: 4, y: 7, color:"I" }
         building.castle3.II = { x: 5, y: 7, color:"II" }
         building.castle3.III = { x: 4, y: 8, color:"III" }
         building.castle3.IV = { x: 5, y: 8, color:"IV" }
-
-    //castle2
+    //castle2 - 5v (D,NB)
       building.create("castle2", { x: 0, y: 7, cost:{stone:10,wood:10,food:10}, upgrade:building.castle3, castle:true, visibility: 5, health:750, defensive:true });
         building.castle2.I = { x: 0, y: 7, color:"I" }
         building.castle2.II = { x: 1, y: 7, color:"II" }
         building.castle2.III = { x: 0, y: 8, color:"III" }
         building.castle2.IV = { x: 1, y: 8, color:"IV" }
-
-    //castle
+    //castle - 4v (D,NB)
       building.create("castle", { x: 2, y: 7, cost:{stone:10,wood:10,food:10}, upgrade:building.castle2, castle: true, visibility: 4, health:500, defensive:true });
         building.castle.I = { x: 2, y: 7, color:"I" }
         building.castle.II = { x: 3, y: 7, color:"II" }
         building.castle.III = { x: 2, y: 8, color:"III" }
         building.castle.IV = { x: 3, y: 8, color:"IV" }
-
-    //tower
-      building.create("tower", {x: 1, y: 3, buildable:true, cost:{stone:1,wood:10,food:10}, visibility: 6 ,health:500, defensive:true });
+    //fort - 8v (D,NB)
+      building.create("fort", {x: 1, y: 4, cost:{stone:15,wood:15,food:15,gold:10,iron:10}, visibility: 8 ,health:750, defensive:true });
+        building.fort.red = { x: 2, y: 4, color:"red" }
+        building.fort.green = { x: 3, y: 4, color:"green" }
+        building.fort.blue = { x: 4, y: 4, color:"blue" }
+        building.fort.yellow = { x: 5, y: 4, color:"yellow" }
+    //tower - 6v (D)
+      building.create("tower", {x: 1, y: 3, buildable:true, cost:{stone:1,wood:10,food:10}, visibility: 6 , upgrade:building.fort, health:500, defensive:true });
         building.tower.red = { x: 2, y: 3, color:"red" }
         building.tower.green = { x: 3, y: 3, color:"green" }
         building.tower.blue = { x: 4, y: 3, color:"blue" }
         building.tower.yellow = { x: 5, y: 3, color:"yellow" }
 
-    //Dock
-      building.create("dock", {x: 6, y: 26, buildable:true, cost:{stone:20,wood:50,food:10,gold:100}, buildbeside: ground.water});
-
-    //Windmill
-      building.create("windmill", {x: 6, y: 26, buildable:true, cost:{stone:5,wood:30,food:50}, produces:item.food, count:1, reqWorker: true});
-
-    //Ruins
+        
+    // Other buildings
+    //dock
+      building.create("dock", {x: 6, y: 26, cost:{stone:20,wood:50,food:10,gold:100}, buildbeside: ground.water});
+    //ruins
     building.create("ruins", { x: 0, y: 4 } );
-
     building.create("sword", { x: 1, y: 5 });
-
     building.create("shield", { x: 6, y: 25 });
 
   //Units
@@ -331,6 +369,13 @@
         unit.builder.red = { x: 0, y: 36, color:"red" }
         unit.builder.yellow = { x: 0, y: 37, color:"yellow" }
         unit.builder.green = { x: 4, y: 35, color:"green" }
+        
+    //scout
+      unit.create("scout", { x: 6, y: 35, hire:true, cost:{gold:40,food:10,iron:5}, visibility:5, health:50, movement: 15});
+        unit.scout.blue = { x: 0, y: 35, color:"blue" }
+        unit.scout.red = { x: 0, y: 36, color:"red" }
+        unit.scout.yellow = { x: 0, y: 37, color:"yellow" }
+        unit.scout.green = { x: 4, y: 35, color:"green" }
 
     //spearman
       unit.create("spearman", { x: 6, y: 15, hire:true, cost:{gold:10,food:5,wood:2,iron:1}, attack: 67, defense: 50 });
