@@ -3,6 +3,8 @@ Open Source HTML5 Strategy Game
 
 Developed and maintained by [Courcat](https://courcat.com)
 
+## Oliver's unstable test copy. Proceed with caution. Your computer may or may not explode.
+
 # Credits
 + *Art* - [Toen's Medieval Strategy Art set](https://toen.itch.io/toens-medieval-strategy)
 + *Development* - [Courcat](https://github.com/courcat)
