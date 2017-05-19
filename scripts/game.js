@@ -243,6 +243,40 @@ game.setEvents = function(platform){
     }
     game.displayInventory();
   }
+  
+  /* Build terrain (i.e. roads) */
+  game.buildTerrain = function(building){
+    var fail = false;
+
+    //check for price
+    for(var i = 0; i < item.list.length; i++){
+      if(building.cost[item.list[i].text] > game.team.inventory.get(item[item.list[i].text])){ fail = "You can't afford that silly."; }
+    }
+
+    //check for standable terrain
+    if(!map.checkTerrain(game.selected.x,game.selected.y)){
+      fail = "You can't stand there.";
+    }
+
+    //check for builder
+    if(map.tile.unit != unit.builder){
+      fail = "error";
+    }
+
+    if(!fail){
+      //remove funds
+      for(var i = 0; i < item.list.length; i++){
+        if(building.cost[item.list[i].text]){game.team.inventory.sub(building.cost[item.list[i].text],item[item.list[i].text]);}
+      }
+
+      //build building
+      map.changeTerrain(building);
+    } else {
+      //Failed
+      async(function(){ui.alert('Nope',fail);});
+    }
+    game.displayInventory();
+  }
 
   //upgrade a building
   game.upgrade = function(){
