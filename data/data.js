@@ -80,7 +80,9 @@
       x: 0, y: 20,
       movementcost: 2,
       ontop: null,
-      travel: false
+      travel: false,
+      road: false,
+      cost: false
     }
 
     //toJSON
