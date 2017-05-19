@@ -459,3 +459,129 @@ game.setEvents = function(platform){
       $('.team_' + chooseTeam.text).html("AI");
     }
   }
+
+// List all roads connected to this tile
+function listRoads() {
+  var the_tile = map.tile;
+  var roads = [];
+  var checked = [];
+  var tocheck = [];
+
+  tocheck.push(the_tile);
+
+  while (tocheck.length > 0) {
+    
+    if (checked.includes(the_tile) == false) {
+      checked.push(the_tile);
+      
+      var x = the_tile.x;
+      var y = the_tile.y;
+
+      if (the_tile.terrain.road) {
+        roads.push(the_tile);
+      }
+      if (map[x-1][y].terrain.road && checked.indexOf(map[x-1][y]) == -1) {
+        tocheck.push(map[x-1][y]);
+      }
+      if (map[x+1][y].terrain.road && checked.indexOf(map[x+1][y]) == -1) {
+        tocheck.push(map[x+1][y]);
+      }
+      if (map[x][y-1].terrain.road && checked.indexOf(map[x][y-1]) == -1) {
+        tocheck.push(map[x][y-1]);
+      }
+      if (map[x][y+1].terrain.road && checked.indexOf(map[x][y+1]) == -1) {
+        tocheck.push(map[x][y+1]);
+      }
+      
+      var old_tile = the_tile;
+    }
+    var index = tocheck.indexOf(the_tile);
+    if (index > -1) {
+      tocheck.splice(index, 1);
+    }
+    if (tocheck.length > 0) {
+      the_tile = tocheck[0];
+    }
+  }
+  
+  return roads;
+};
+
+
+// Adjust road orientation
+function adjustRoads(roads) {
+  for (i = 0; i < roads.length; i++) { 
+    var the_tile = roads[i];
+    var x = roads[i].x;
+    var y = roads[i].y;
+
+    // Crossroad
+    if (map[x-1][y].terrain.road && map[x+1][y].terrain.road && map[x][y-1].terrain.road && map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadCrossroad;
+    }
+    // Horizontal T Up
+    else if (map[x-1][y].terrain.road && map[x+1][y].terrain.road && map[x][y-1].terrain.road) {
+      map[x][y].terrain = terrain.roadTHorizontalUp;
+    }
+    // Horizontal T Down
+    else if (map[x-1][y].terrain.road && map[x+1][y].terrain.road && map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadTHorizontalDown;
+    }
+    // Vertical T Left
+    else if (map[x-1][y].terrain.road && map[x][y-1].terrain.road && map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadTVerticalLeft;
+    }
+    // Vertical T Right
+    else if (map[x+1][y].terrain.road && map[x][y-1].terrain.road && map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadTVerticalRight;
+    }
+    // Horizontal
+    else if (map[x-1][y].terrain.road && map[x+1][y].terrain.road) {
+      map[x][y].terrain = terrain.roadHorizontal;
+    }
+    // Vertical
+    else if (map[x][y-1].terrain.road && map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadVertical;
+    }
+    // Corner Down Right
+    else if (map[x+1][y].terrain.road && map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadCDownRight;
+    }
+    // Corner Down Left
+    else if (map[x-1][y].terrain.road && map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadCDownLeft;
+    }
+    // Corner Up Right
+    else if (map[x+1][y].terrain.road && map[x][y-1].terrain.road) {
+      map[x][y].terrain = terrain.roadCUpRight;
+    }
+    // Corner Up Left
+    else if (map[x-1][y].terrain.road && map[x][y-1].terrain.road) {
+      map[x][y].terrain = terrain.roadCUpLeft;
+    }
+    // Horizontal End 1
+    else if (map[x-1][y].terrain.road) {
+      map[x][y].terrain = terrain.roadHorizontal;
+    }
+    // Horizontal End 2
+    else if (map[x+1][y].terrain.road) {
+      map[x][y].terrain = terrain.roadHorizontal;
+    }
+    // Vertical End 1
+    else if (map[x][y+1].terrain.road) {
+      map[x][y].terrain = terrain.roadVertical;
+    }
+    // Vertical End 2
+    else if (map[x][y-1].terrain.road) {
+      map[x][y].terrain = terrain.roadVertical;
+    }
+  };
+  return true;
+};
+
+
+// Find all connected roads, and adjust their rotation
+function processRoads() {
+  var roads = listRoads();
+  adjustRoads(roads);
+};
