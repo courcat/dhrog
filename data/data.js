@@ -120,6 +120,38 @@
 
     terrain.create("gold", { x: 6, y: 29, movementcost: 10, ontop: ground.land, travel: true});
 
+    /* road - main */
+    
+    terrain.create("road", { x: 4, y: 11, movementcost: 1, cost:{gold:2,stone:2}, ontop: ground.land, travel: true, road: true});
+    
+    /* roads - intersections */
+    
+    terrain.create("roadCrossroad", { x: 4, y: 11, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadTHorizontalUp", { x: 5, y: 9, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadTHorizontalDown", { x: 4, y: 9, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadTVerticalRight", { x: 6, y: 11, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadTVerticalLeft", { x: 6, y: 10, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    /* roads - straight */
+    
+    terrain.create("roadVertical", { x: 5, y: 11, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadHorizontal", { x: 4, y: 12, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    /* roads - corners */
+    
+    terrain.create("roadCDownRight", { x: 3, y: 10, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadCDownLeft", { x: 5, y: 10, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadCUpRight", { x: 3, y: 12, movementcost: 1, ontop: ground.land, travel: true, road: true});
+    
+    terrain.create("roadCUpLeft", { x: 5, y: 12, movementcost: 1, ontop: ground.land, travel: true, road: true});
+
     /* water terrains */
 
     terrain.create("fish", { x: 6, y: 34, movementcost: 5, ontop: ground.water, travel: true});
