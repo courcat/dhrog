@@ -157,7 +157,16 @@ game.turn = function(){
   if(game.team.ai){
     ai.turn();
   } else {
-    ui.window(mod.next);
+    if(game.team.identity != null){
+     if(game.team.identity != multiplayer.identity) {
+       ui.window(mod.onlineTurn);
+       multiplayer.push();
+     } else {
+       ui.window(mod.next);
+     }   
+   } else {
+     ui.window(mod.next);
+   }
   }
 }
 

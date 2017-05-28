@@ -238,14 +238,16 @@ mod.menu = function(){
 			padding: 15px;
 		}
 	  </style>
+	`;
 
-		<script>
+	//onload
+	this.run = function(){
+		map.dullMap();
 		pause = true;
 		game.team = team.grey;
 		ui.hello();
 		game.setTeams();
-		</script>
-	`;
+	}
 }
 
 //online menu
@@ -254,14 +256,61 @@ mod.online = function(){
 	this.html = `
 	  <ul class="win_menu">
 			<li><img id="logo" src="data/banner.png" alt="Legend of Dhorg"></li>
-			<input placeholder="enter game code"></input>
 	  </ul>
+
+		<div class="maplist">
+			` + multiplayer.list() + `
+			<div class='mapslot mapslot_new inputs'><p class='map_details'>
+				<input type='text' class="gameCode" name='gameCode' placeholder="Game Code"></input><span class="button button-grouped button_main" onclick="multiplayer.join($('.gameCode').val())">Join</span>
+			</p></div>
+			<div class='mapslot mapslot_new' onclick='window.open('https://www.courcat.com/dhrog/server');'><p class='map_details'>Create</p></div>
+			<div class='mapslot mapslot_new' onclick='ui.window(mod.menu);'><p class='map_details'>Nope</p></div>
+		</div>
+
+		<style>
+			.mapslot_new {text-align: center;}
+
+			.inputs:hover {
+				top: 0px;
+			}
+
+			.inputs {
+				padding: 0px;
+				position: relative;
+			}
+
+			.inputs input {
+				width: 40%;
+			}
+
+			.inputs .button {
+				min-width: 30%;
+				margin: 0px;
+				position: relative;
+				left: -2px;
+			}
+
+		</style>
 	`;
+}
 
-	//onload
-	this.run = function(){
+//online turn
+mod.onlineTurn = function(){
+	this.html = `
+		<style>.ui_cover { font-size: 150%; }</style>
+		<span class='ui_title'>Turn Sending</span><br>
+		Your turn is being uploaded to the server...
+	`;
+}
 
-	}
+//online turn
+mod.onlineSuccess = function(){
+	this.html = `
+		<style>.ui_cover { font-size: 150%; }</style>
+		<span class='ui_title'>Turn Sent</span><br>
+		Your turn has been sent<br><br>
+		<span class="button button_main" onclick="ui.window(mod.menu);">Fair</span>
+	`;
 }
 
 //select map
@@ -271,19 +320,14 @@ mod.maps = function(){
 			<li><img id="logo" src="data/banner.png" alt="Legend of Dhorg"></li>
 	  </ul>
 
-		<div class="maplist">loading...</div>
+		<div class="maplist">
+			` + map.listSlots() + `
+			<div class='mapslot mapslot_import'><p class='map_details'>Drag here to import</p></div>
+			<div class='mapslot mapslot_new' onclick='map.newSlot()'><p class='map_details'>New Game</p></div>
+			<div class='mapslot mapslot_new' onclick='ui.window(mod.menu);'><p class='map_details'>Nope</p></div>
+		</div>
 
-		<script>
-		var value = map.listSlots();
-
-		value += "<div class='mapslot mapslot_import'><p class='map_details'>Drag here to import</p></div>";
-
-	  value += "<style>.mapslot_import:hover { top: 0px; } .mapslot_import {text-align: center;} .mapslot_new {text-align: center;}</style>";
-
-	  value += "<div class='mapslot mapslot_new' onclick='map.newSlot()'><p class='map_details'>New Game</p></div>";
-
-	  $('.maplist').html(value);
-		</script>
+		<style>.mapslot_import:hover { top: 0px; } .mapslot_import {text-align: center;} .mapslot_new {text-align: center;}</style>
 	`;
 }
 
@@ -351,8 +395,7 @@ mod.next = function(){
 	this.html = `
 		<style>.ui_cover { font-size: 150%; }</style>
 		<span class='ui_title'>Next Player</span><br>
-		Please pass the device to the next player if applicable.<br><br>
-		<span class="button button_main" onclick="ui.back();">I am the new Heir to this Magical Box</span>
+		<span class="button button_main" onclick="ui.back();">I am the new Heir to this Magical Kingdom</span>
 	`;
 }
 

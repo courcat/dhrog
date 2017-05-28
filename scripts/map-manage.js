@@ -73,6 +73,13 @@ map.import = function(value){
     for(var key in team){
       team[key].visible = obj.player[key].map;
       team[key].inventory.update(obj.player[key].inventory);
+
+      if (obj.player[key].identity === "null"){
+        team[key].identity = null;
+      } else {
+        team[key].identity = obj.player[key].identity;
+      }
+
       if(obj.player[key].ai){
           team[key].ai = (obj.player[key].ai == "true");
       }
@@ -141,7 +148,7 @@ map.export = function(){
 
     firstGo = false;
 
-    value += '"' + key + '":{"inventory":' + JSON.stringify(team[key].inventory.vault) + ',"ai":"' + team[key].ai + '","map":' + JSON.stringify(team[key].visible) + '}';
+    value += '"' + key + '":{"inventory":' + JSON.stringify(team[key].inventory.vault) + ',"ai":"' + team[key].ai + '","identity":"' + team[key].identity + '","map":' + JSON.stringify(team[key].visible) + '}';
   }
 
   value += '},';
@@ -177,5 +184,3 @@ map.load = function(){
 map.reset = function(){
   localStorage.removeItem("map_" + map.slot);
 }
-
-//map import

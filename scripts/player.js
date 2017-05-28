@@ -7,6 +7,7 @@
     this.color = data.color;
     this.ai = true;
     this.home = {x: 0, y:0 }
+    this.identity = null;
 
     /* visibility Array
      * can be :

@@ -326,6 +326,18 @@ body.hover {
 		bottom: 5px;
   }
 
+  input[type=text] {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    border: 2px solid black;
+    cursor: pointer;
+    min-width: 50%;
+    font-size: 100%;
+    padding: 10px;
+    outline: none;
+  }
+
   .arrow {
     float: center;
     width: 45%;
