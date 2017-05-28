@@ -49,6 +49,7 @@ mod.build = function(){
 		<div onclick='game.build(building.quarry); ui.close();' class='button_lg quarry'>Quarry</div>
 		<div onclick='game.build(building.mine); ui.close();' class='button_lg quarry'>Mine</div>
 		<div onclick='game.build(building.researchCenter); ui.close();' class='button_lg researchCenter'>ResearchCenter</div>
+		<div onclick='game.buildTerrain(terrain.road); processRoads(); ui.close();' class='button_lg road'>Road</div>
 		<div onclick='ui.close();' class='button_lg'>Cancel</div>
 
 		<style>
@@ -85,6 +86,7 @@ mod.build = function(){
 		win_getSupplies(building.researchCenter);
 		win_getSupplies(building.quarry);
 		win_getSupplies(building.mine);
+		win_getSupplies(terrain.road);
 	}
 }
 
