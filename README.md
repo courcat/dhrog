@@ -1,3 +1,13 @@
+# Announcement
+Courcat has continued development of Dhrog but has decided to redesign the game from the ground up with online multiplayer as the focus and in a manner that puts security as a high priority. In order to do so, the team has decided not to publish the code as open source. We will make sure to include a way to mod the game, but will do so without comprimising the game security and not allowing players to cheat using mods or hacks. 
+
+This version is still around and will be left up incase anyone wants to experiment with the code. Please feel free to do so.
+
+Thank you for your understanding,
+
+Josh Grift,<br>
+Dhrog Development Head
+
 # Dhrog
 Open Source HTML5 Strategy Game
 
